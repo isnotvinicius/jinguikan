@@ -23,6 +23,7 @@ class StudentRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'birth_date' => 'required',
             'belt_id' => 'required|integer|exists:belts,id'
         ];
     }

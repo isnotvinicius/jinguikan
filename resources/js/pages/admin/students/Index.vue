@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 import Layout from "@/layouts/AppLayout.vue";
+import dayjs from "dayjs";
+import Swal from 'sweetalert2';
 
 defineProps({ students: Array, belts: Array });
 
@@ -17,10 +19,24 @@ const submit = () => {
 };
 
 const deleteStudent = (id) => {
-  if (confirm("Tem certeza que deseja excluir este aluno?")) {
-    router.delete(`/admin/students/${id}`);
-  }
+  Swal.fire({
+    title: "Tem certeza que deseja excluir este aluno?",
+    text: "Esta ação é irreversível.",
+    confirmButtonText: "Sim!",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar!",
+    confirmButtonColor: "#25be2f",
+    cancelButtonColor: "#fd0004",
+  }).then((isConfirmed) => {
+    if (isConfirmed) {
+      router.delete(`/admin/students/${id}`);
+    }
+  });
 };
+
+const formatDate = (date) => {
+  return dayjs(date).format("DD/MM/YYYY");
+}
 </script>
 
 <template>
@@ -61,7 +77,7 @@ const deleteStudent = (id) => {
         <tbody>
           <tr v-for="student in students" :key="student.id" class="border">
             <td class="border p-2">{{ student.name }}</td>
-            <td class="border p-2">{{ student.birth_date }}</td>
+            <td class="border p-2">{{ formatDate(student.birth_date) }}</td>
             <td class="border p-2">{{ student.belt.name }}</td>
             <td class="border p-2 flex justify-center">
               <button @click="editStudent(student.id)" class="bg-blue-500 text-white px-2 py-1">
