@@ -35,8 +35,9 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        return Inertia::render('Admin/Students/show', [
-            'student' => $student->load('belt')
+        return Inertia::render('admin/students/Show', [
+            'student' => $student->load('belt'),
+            'belts' => Belt::all(),
         ]);
     }
 

@@ -11,12 +11,12 @@ import AppLogo from './AppLogo.vue';
 const mainNavItems: NavItem[] = [
     {
         title: 'Alunos',
-        href: '/admin/alunos',
+        href: '/admin/students',
         icon: LayoutGrid,
     },
     {
         title: 'Aulas',
-        href: '/admin/aulas',
+        href: '/admin/classes',
         icon: LayoutGrid,
     },
 ];

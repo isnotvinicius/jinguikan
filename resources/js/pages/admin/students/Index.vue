@@ -5,6 +5,7 @@ import { onMounted } from "vue";
 import Layout from "@/layouts/AppLayout.vue";
 import dayjs from "dayjs";
 import Swal from 'sweetalert2';
+import { displayToast } from "@/components/ui/Toast";
 
 defineProps({ students: Array, belts: Array });
 
@@ -15,8 +16,14 @@ const form = ref({
 });
 
 const submit = () => {
-  router.post("/admin/students", form.value);
+  router.post("/admin/students", form.value, {
+    onSuccess: () => displayToast("Aluno criado com sucesso!")
+  });
 };
+
+const editStudent = (id) => {
+    router.get(`/admin/students/${id}`);
+}
 
 const deleteStudent = (id) => {
   Swal.fire({
@@ -29,7 +36,9 @@ const deleteStudent = (id) => {
     cancelButtonColor: "#fd0004",
   }).then((isConfirmed) => {
     if (isConfirmed) {
-      router.delete(`/admin/students/${id}`);
+      router.delete(`/admin/students/${id}`, {
+        onSuccess: () => displayToast("Aluno excluído com sucesso!")
+      });
     }
   });
 };
