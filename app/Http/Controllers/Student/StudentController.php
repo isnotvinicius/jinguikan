@@ -20,8 +20,9 @@ class StudentController extends Controller
 
     public function create()
     {
-        $belts = Belt::all();
-        return inertia('admin/students/Create', compact('belts'));
+        return Inertia::render('admin/students/Create', [
+            'belts' => Belt::all()
+        ]);
     }
 
     public function store(StudentRequest $request)
