@@ -24,13 +24,13 @@ const deleteStudent = (id) => {
     Swal.fire({
         title: "Tem certeza que deseja excluir este aluno?",
         text: "Esta ação é irreversível.",
-        confirmButtonText: "Sim!",
+        confirmButtonText: "Sim, tenho certeza!",
         showCancelButton: true,
         cancelButtonText: "Cancelar!",
-        confirmButtonColor: "#25be2f",
+        confirmButtonColor: "#4299e1",
         cancelButtonColor: "#fd0004",
-    }).then((isConfirmed) => {
-        if (isConfirmed) {
+    }).then((result) => {
+        if (result.isConfirmed) {
             router.delete(`/admin/students/${id}`, {
                 onSuccess: () => displayToast("Aluno excluído com sucesso!")
             });
